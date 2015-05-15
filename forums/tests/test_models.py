@@ -12,7 +12,7 @@ class ForumModelTestCase(TestCase):
         super(ForumModelTestCase, self).setUp()
 
     def tearDown(self):
-        self.forum.delete()
+        Forum.objects.all().delete()
         super(ForumModelTestCase, self).tearDown()
 
     def test_new_forum(self):
