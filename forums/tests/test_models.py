@@ -34,3 +34,14 @@ class ForumModelTestCase(TestCase):
         self.forum.name = 'Updated Test'
         self.forum.save()
         self.assertEqual(self.forum.slug, 'updated-test')
+
+    def test_only_visible_forums(self):
+        for i in xrange(1, 4):
+            Forum.objects.create(name='%d' % i, active=True)
+
+        # 3 active, 1 inactive
+        self.assertEqual(Forum.objects.count(), 4)
+        self.assertEqual(Forum.visible.count(), 3)
+
+        # 'Test' forum should not be in visible forums
+        self.assertNotIn(self.forum, Forum.visible.all())
