@@ -1,5 +1,7 @@
 from django.conf.urls import url
-from forums.views import NewForumView, ForumIndexView, UpdateForumView
+from forums.views import (
+    NewForumView, ForumIndexView, UpdateForumView, ChangeForumVisibilityView
+)
 
 
 urlpatterns = [
@@ -17,5 +19,10 @@ urlpatterns = [
         r'^(?P<slug>[\w-]+)/update/$',
         UpdateForumView.as_view(),
         name='update'
+    ),
+    url(
+        r'^(?P<slug>[\w-]+)/visibility/$',
+        ChangeForumVisibilityView.as_view(),
+        name='visibility'
     ),
 ]

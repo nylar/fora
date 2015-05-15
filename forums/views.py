@@ -22,3 +22,7 @@ class UpdateForumView(UpdateView):
 
     def get_success_url(self):
         return reverse('forums:index')
+
+
+class ChangeForumVisibilityView(UpdateForumView):
+    fields = ['active']

@@ -1,6 +1,8 @@
 from django.core.urlresolvers import reverse
 from django.test import TestCase, RequestFactory
-from forums.views import ForumIndexView, NewForumView, UpdateForumView
+from forums.views import (
+    ForumIndexView, NewForumView, UpdateForumView, ChangeForumVisibilityView
+)
 from forums.models import Forum
 
 
@@ -104,6 +106,54 @@ class UpdateForumViewTestCase(TestCase):
             'description': self.forum.description
         })
         response = UpdateForumView.as_view()(request, slug=self.forum.slug)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse('forums:index'))
+
+    def test_post_form_invalid(self):
+        request = self.factory.post('/', data={})
+        response = UpdateForumView.as_view()(request, slug=self.forum.slug)
+        response.render()
+
+        self.assertIn(
+            '<ul class="errorlist"><li>This field is required.</li></ul>',
+            response.content
+        )
+
+
+class ChangeForumVisibilityViewTestCase(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.forum = Forum.objects.create(
+            name='Active forum',
+            description='A very active forum',
+            active=True,
+        )
+        super(ChangeForumVisibilityViewTestCase, self).setUp()
+
+    def test_get_visibility_view(self):
+        request = self.factory.get('/')
+        response = ChangeForumVisibilityView.as_view()(
+            request,
+            slug=self.forum.slug
+        )
+        response.render()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(
+            'checked="checked" id="id_active" name="active"',
+            response.content
+        )
+
+    def test_post_form(self):
+        request = self.factory.post('/', data={
+            'active': False,
+        })
+        response = ChangeForumVisibilityView.as_view()(
+            request,
+            slug=self.forum.slug
+        )
 
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, reverse('forums:index'))

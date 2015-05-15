@@ -23,3 +23,10 @@ class ForumUrlsTestCase(TestCase):
             reverse('forums:update', kwargs={'slug': f.slug})
         )
         self.assertEqual(response.status_code, 200)
+
+    def test_visibility_url(self):
+        f = Forum.objects.create(name='Visible', description='I am visible')
+        response = self.client.get(
+            reverse('forums:visibility', kwargs={'slug': f.slug})
+        )
+        self.assertEqual(response.status_code, 200)
