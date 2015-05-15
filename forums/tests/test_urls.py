@@ -1,5 +1,6 @@
 from django.core.urlresolvers import reverse
 from django.test import TestCase, Client
+from forums.models import Forum
 
 
 class ForumUrlsTestCase(TestCase):
@@ -14,4 +15,11 @@ class ForumUrlsTestCase(TestCase):
 
     def test_new_url(self):
         response = self.client.get(reverse('forums:new'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_update_url(self):
+        f = Forum.objects.create(name='Test', description='Test')
+        response = self.client.get(
+            reverse('forums:update', kwargs={'slug': f.slug})
+        )
         self.assertEqual(response.status_code, 200)

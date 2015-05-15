@@ -1,6 +1,6 @@
 from django.core.urlresolvers import reverse
 from django.test import TestCase, RequestFactory
-from forums.views import ForumIndexView, NewForumView
+from forums.views import ForumIndexView, NewForumView, UpdateForumView
 from forums.models import Forum
 
 
@@ -71,3 +71,39 @@ class NewForumViewTestCase(TestCase):
             '<ul class="errorlist"><li>This field is required.</li></ul>',
             response.content
         )
+
+
+class UpdateForumViewTestCase(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.forum = Forum.objects.create(
+            name='Initial Forum',
+            description='A starting point'
+        )
+        super(UpdateForumViewTestCase, self).setUp()
+
+    def test_get_update_view(self):
+        request = self.factory.get('/')
+        response = UpdateForumView.as_view()(request, slug=self.forum.slug)
+        response.render()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(
+            'name="name" type="text" value="Initial Forum"',
+            response.content
+        )
+        self.assertIn(
+            'name="description" type="text" value="A starting point"',
+            response.content
+        )
+
+    def test_post_form(self):
+        request = self.factory.post('/', data={
+            'name': 'Updated Forum',
+            'description': self.forum.description
+        })
+        response = UpdateForumView.as_view()(request, slug=self.forum.slug)
+
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse('forums:index'))
