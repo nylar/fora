@@ -10,7 +10,7 @@ class ForumIndexView(ListView):
 
 class NewForumView(CreateView):
     model = Forum
-    fields = ['name', 'description']
+    fields = ['name', 'description', 'active']
 
     def get_success_url(self):
         return reverse('forums:index')

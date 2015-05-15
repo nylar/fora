@@ -47,6 +47,10 @@ class NewForumViewTestCase(TestCase):
             '<label for="id_description">Description:</label>',
             response.content
         )
+        self.assertIn(
+            '<label for="id_active">Active:</label>',
+            response.content
+        )
 
     def test_post_form(self):
         request = self.factory.post(reverse('forums:new'), data={
