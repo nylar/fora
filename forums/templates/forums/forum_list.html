@@ -1,0 +1,10 @@
+<a href="{% url 'forums:new' %}">New Forum</a>
+
+{% for forum in object_list %}
+<div>
+    <h1>{{ forum.name }}</h1>
+    <p>{{ forum.description }}</p>
+</div>
+{% empty %}
+<p>No forums found</p>
+{% endfor %}
