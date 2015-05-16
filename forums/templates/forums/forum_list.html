@@ -1,10 +1,27 @@
-<a href="{% url 'forums:new' %}">New Forum</a>
+{% extends "base.html" %}
 
-{% for forum in object_list %}
-<div>
-    <h1>{{ forum.name }}</h1>
-    <p>{{ forum.description }}</p>
-</div>
-{% empty %}
-<p>No forums found</p>
-{% endfor %}
+{% block content %}
+<a href="{% url 'forums:new' %}" class="btn btn-green">New Forum</a>
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for forum in object_list %}
+        <tr>
+            <td><a href="{% url 'forums:show' forum.slug %}">{{ forum.name }}</a></td>
+            <td>{{ forum.description }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2">No forums found</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>  
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        
+        <title>Fora</title>
+
+        {% block extra_css %}{% endblock extra_css %}
+
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+        <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans:400,600">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/minimu.min.css' %}">
+    </head>
+    <body>
+        {% block content %}{% endblock content %}
+        {% block extra_js %}{% endblock extra_js %}
+    </body>
+</html>

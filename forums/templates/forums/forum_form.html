@@ -1,5 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
 <form action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Create Forum" />
+    {% if object %}
+    <input type="submit" value="Update Forum" class="btn btn-green" />
+    {% else %}
+    <input type="submit" value="Create Forum" class="btn btn-green" />
+    {% endif %}
 </form>
+{% endblock content %}

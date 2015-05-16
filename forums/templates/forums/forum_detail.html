@@ -1,5 +1,10 @@
-<a href="{% url 'forums:update' object.slug %}">Update</a>
-<a href="{% url 'forums:visibility' object.slug %}">Change Visibility</a>
+{% extends "base.html" %}
+
+{% block content %}
+<a href="{% url 'threads:new' %}" class="btn btn-green">New Thread</a>
+<a href="{% url 'forums:update' object.slug %}" class="btn btn-grey">Update</a>
+<a href="{% url 'forums:visibility' object.slug %}" class="btn btn-grey">Change Visibility</a>
 
 <h1>{{ object.name }}</h1>
 <p>{{ object.description }}</p>
+{% endblock content %}
