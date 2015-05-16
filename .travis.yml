@@ -7,6 +7,6 @@ before_script:
   - python manage.py syncdb --noinput
   - python manage.py migrate --noinput
 script:
-  - py.test --cov forums --cov-report term-missing
+  - py.test --cov forums --cov threads --cov-report term-missing
 after_success:
   - coveralls
