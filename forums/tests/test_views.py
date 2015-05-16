@@ -23,7 +23,11 @@ class ForumIndexViewTestCase(BaseForumTestCase):
         self.assertIn('No forums found', response.content)
 
     def test_index_with_forums(self):
-        f = Forum.objects.create(name='First Forum', description='A forum')
+        f = Forum.objects.create(
+            name='First Forum',
+            description='A forum',
+            active=True
+        )
 
         request = self.factory.get('/')
         response = ForumIndexView.as_view()(request)
@@ -83,7 +87,8 @@ class UpdateForumViewTestCase(BaseForumTestCase):
         self.factory = RequestFactory()
         self.forum = Forum.objects.create(
             name='Initial Forum',
-            description='A starting point'
+            description='A starting point',
+            active=True
         )
         super(UpdateForumViewTestCase, self).setUp()
 
