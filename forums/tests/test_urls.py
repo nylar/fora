@@ -1,9 +1,10 @@
 from django.core.urlresolvers import reverse
-from django.test import TestCase, Client
+from django.test import Client
 from forums.models import Forum
+from .base import BaseForumTestCase
 
 
-class ForumUrlsTestCase(TestCase):
+class ForumUrlsTestCase(BaseForumTestCase):
 
     def setUp(self):
         super(ForumUrlsTestCase, self).setUp()
@@ -28,5 +29,12 @@ class ForumUrlsTestCase(TestCase):
         f = Forum.objects.create(name='Visible', description='I am visible')
         response = self.client.get(
             reverse('forums:visibility', kwargs={'slug': f.slug})
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def test_show_url(self):
+        f = Forum.objects.create(name='Test', description='Test')
+        response = self.client.get(
+            reverse('forums:show', kwargs={'slug': f.slug})
         )
         self.assertEqual(response.status_code, 200)

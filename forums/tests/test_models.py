@@ -1,8 +1,8 @@
-from django.test import TestCase
 from forums.models import Forum
+from .base import BaseForumTestCase
 
 
-class ForumModelTestCase(TestCase):
+class ForumModelTestCase(BaseForumTestCase):
 
     def setUp(self):
         self.forum = Forum.objects.create(
@@ -10,10 +10,6 @@ class ForumModelTestCase(TestCase):
             description='Forum for testing'
         )
         super(ForumModelTestCase, self).setUp()
-
-    def tearDown(self):
-        Forum.objects.all().delete()
-        super(ForumModelTestCase, self).tearDown()
 
     def test_new_forum(self):
         self.assertEqual(Forum.objects.count(), 1)

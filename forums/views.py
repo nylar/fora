@@ -1,4 +1,5 @@
 from django.core.urlresolvers import reverse
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 from forums.models import Forum
@@ -26,3 +27,7 @@ class UpdateForumView(UpdateView):
 
 class ChangeForumVisibilityView(UpdateForumView):
     fields = ['active']
+
+
+class ShowForumView(DetailView):
+    model = Forum

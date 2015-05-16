@@ -1,12 +1,14 @@
 from django.core.urlresolvers import reverse
-from django.test import TestCase, RequestFactory
+from django.test import RequestFactory
 from forums.views import (
-    ForumIndexView, NewForumView, UpdateForumView, ChangeForumVisibilityView
+    ForumIndexView, NewForumView, UpdateForumView,
+    ChangeForumVisibilityView, ShowForumView
 )
 from forums.models import Forum
+from .base import BaseForumTestCase
 
 
-class ForumIndexViewTestCase(TestCase):
+class ForumIndexViewTestCase(BaseForumTestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -32,7 +34,7 @@ class ForumIndexViewTestCase(TestCase):
         self.assertIn(f.description, response.content)
 
 
-class NewForumViewTestCase(TestCase):
+class NewForumViewTestCase(BaseForumTestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -75,7 +77,7 @@ class NewForumViewTestCase(TestCase):
         )
 
 
-class UpdateForumViewTestCase(TestCase):
+class UpdateForumViewTestCase(BaseForumTestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -121,7 +123,7 @@ class UpdateForumViewTestCase(TestCase):
         )
 
 
-class ChangeForumVisibilityViewTestCase(TestCase):
+class ChangeForumVisibilityViewTestCase(BaseForumTestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -157,3 +159,23 @@ class ChangeForumVisibilityViewTestCase(TestCase):
 
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, reverse('forums:index'))
+
+
+class ShowForumViewTestCase(BaseForumTestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.forum = Forum.objects.create(
+            name='Forum',
+            description='A forum',
+            active=True,
+        )
+        super(ShowForumViewTestCase, self).setUp()
+
+    def test_show_view(self):
+        request = self.factory.get('/')
+        response = ShowForumView.as_view()(request, slug=self.forum.slug)
+        response.render()
+
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(self.forum.name, response.content)

@@ -1,0 +1,5 @@
+<a href="{% url 'forums:update' object.slug %}">Update</a>
+<a href="{% url 'forums:visibility' object.slug %}">Change Visibility</a>
+
+<h1>{{ object.name }}</h1>
+<p>{{ object.description }}</p>
