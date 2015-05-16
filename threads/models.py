@@ -30,3 +30,4 @@ class Thread(models.Model):
 def generate_slug(sender, instance, created, **kwargs):
     if created:
         instance.slug = HASHER.encode(instance.pk)
+        instance.save()
