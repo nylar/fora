@@ -12,7 +12,7 @@
         </tr>
     </thead>
     <tbody>
-        {% for forum in object_list %}
+        {% for forum in forums %}
         <tr>
             <td><a href="{% url 'forums:show' forum.slug %}">{{ forum.name }}</a></td>
             <td>{{ forum.description }}</td>

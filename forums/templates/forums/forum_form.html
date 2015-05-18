@@ -4,7 +4,7 @@
 <form action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    {% if object %}
+    {% if forum %}
     <input type="submit" value="Update Forum" class="btn btn-green" />
     {% else %}
     <input type="submit" value="Create Forum" class="btn btn-green" />

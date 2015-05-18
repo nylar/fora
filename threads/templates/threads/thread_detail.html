@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>{{ object.subject }}</h1>
-<p>Forum: <a href="{% url 'forums:show' object.forum.slug %}">{{ object.forum.name }}</a></p>
-<p>{{ object.created }}</p>
+<h1>{{ thread.subject }}</h1>
+<p>Forum: <a href="{% url 'forums:show' thread.forum.slug %}">{{ thread.forum.name }}</a></p>
+<p>{{ thread.created }}</p>
 {% endblock content %}

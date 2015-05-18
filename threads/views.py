@@ -16,6 +16,7 @@ class ThreadMixin(object):
 
 
 class NewThreadView(CreateView):
+    context_object_name = 'thread'
     model = Thread
     fields = ['subject', 'forum']
 
@@ -25,3 +26,4 @@ class NewThreadView(CreateView):
 
 class ShowThreadView(ThreadMixin, DetailView):
     model = Thread
+    context_object_name = 'thread'

@@ -2,14 +2,14 @@
 
 {% block content %}
 <a href="{% url 'threads:new' %}" class="btn btn-green">New Thread</a>
-<a href="{% url 'forums:update' object.slug %}" class="btn btn-grey">Update</a>
-<a href="{% url 'forums:visibility' object.slug %}" class="btn btn-grey">Change Visibility</a>
+<a href="{% url 'forums:update' forum.slug %}" class="btn btn-grey">Update</a>
+<a href="{% url 'forums:visibility' forum.slug %}" class="btn btn-grey">Change Visibility</a>
 
-<h1>{{ object.name }}</h1>
-<p>{{ object.description }}</p>
+<h1>{{ forum.name }}</h1>
+<p>{{ forum.description }}</p>
 
 <ul>
-    {% for thread in object.threads %}
+    {% for thread in forum.threads %}
     <li>
         <a href="{% url 'threads:show' thread.slug %}">{{ thread.subject }}</a>
     </li>

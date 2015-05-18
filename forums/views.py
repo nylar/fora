@@ -7,6 +7,7 @@ from forums.models import Forum
 
 
 class ForumIndexView(ListView):
+    context_object_name = 'forums'
     model = Forum
 
 
@@ -29,6 +30,7 @@ class ForumMixin(object):
 
 
 class UpdateForumView(ForumMixin, UpdateView):
+    context_object_name = 'forum'
     model = Forum
     fields = ['name', 'description']
 
@@ -37,6 +39,7 @@ class UpdateForumView(ForumMixin, UpdateView):
 
 
 class ChangeForumVisibilityView(UpdateView):
+    context_object_name = 'forum'
     model = Forum
     fields = ['active']
 
@@ -45,4 +48,5 @@ class ChangeForumVisibilityView(UpdateView):
 
 
 class ShowForumView(ForumMixin, DetailView):
+    context_object_name = 'forum'
     model = Forum
