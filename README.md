@@ -32,5 +32,5 @@ python manage.py runserver
 
 To run the tests (with code coverage).
 ```shell
-py.test --cov forums --cov threads --cov-report term-missing
+py.test --cov forums --cov threads --cov posts --cov-report term-missing
 ```
