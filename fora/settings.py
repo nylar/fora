@@ -40,6 +40,7 @@ INSTALLED_APPS = (
 
     'forums',
     'threads',
+    'posts',
 )
 
 MIDDLEWARE_CLASSES = (
