@@ -1,4 +1,5 @@
 from forums.models import Forum
+from threads.models import Thread
 from .base import BaseForumTestCase
 
 
@@ -41,3 +42,16 @@ class ForumModelTestCase(BaseForumTestCase):
 
         # 'Test' forum should not be in visible forums
         self.assertNotIn(self.forum, Forum.visible.all())
+
+    def test_threads_empty(self):
+        threads = self.forum.threads()
+        self.assertEqual(len(threads), 0)
+        self.assertEqual(list(threads), [])
+
+    def test_threads(self):
+        t1 = Thread.objects.create(subject='t1', forum=self.forum)
+        t2 = Thread.objects.create(subject='t2', forum=self.forum)
+
+        threads = self.forum.threads()
+        self.assertEqual(len(threads), 2)
+        self.assertEqual(list(threads), [t1, t2])

@@ -26,3 +26,6 @@ class Forum(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Forum, self).save(*args, **kwargs)
+
+    def threads(self):
+        return self.thread_set.all()

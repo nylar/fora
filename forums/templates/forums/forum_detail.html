@@ -7,4 +7,14 @@
 
 <h1>{{ object.name }}</h1>
 <p>{{ object.description }}</p>
+
+<ul>
+    {% for thread in object.threads %}
+    <li>
+        <a href="{% url 'threads:show' thread.slug %}">{{ thread.subject }}</a>
+    </li>
+    {% empty %}
+    <li>No threads for this forum.</li>
+    {% endfor %}
+</ul>
 {% endblock content %}
