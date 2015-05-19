@@ -4,10 +4,10 @@ from posts.models import Post
 from threads.models import Thread
 
 
-class BasePostTestCase(TestCase):
+class BaseTestCase(TestCase):
 
     def tearDown(self):
-        Post.objects.all().delete()
+        Post.objects.all()
         Thread.objects.all().delete()
         Forum.objects.all().delete()
-        super(BasePostTestCase, self).tearDown()
+        super(BaseTestCase, self).tearDown()

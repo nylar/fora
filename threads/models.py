@@ -25,6 +25,9 @@ class Thread(models.Model):
     def __unicode__(self):
         return u'%s' % self.subject
 
+    def posts(self):
+        return self.post_set.all()
+
 
 @receiver(post_save, sender=Thread)
 def generate_slug(sender, instance, created, **kwargs):

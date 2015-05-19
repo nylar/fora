@@ -1,14 +1,14 @@
 from django.core.urlresolvers import reverse
 from django.test import RequestFactory
+from fora.tests.base import BaseTestCase
 from forums.views import (
     ForumIndexView, NewForumView, UpdateForumView,
     ChangeForumVisibilityView, ShowForumView
 )
 from forums.models import Forum
-from .base import BaseForumTestCase
 
 
-class ForumIndexViewTestCase(BaseForumTestCase):
+class ForumIndexViewTestCase(BaseTestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -38,7 +38,7 @@ class ForumIndexViewTestCase(BaseForumTestCase):
         self.assertIn(f.description, response.content)
 
 
-class NewForumViewTestCase(BaseForumTestCase):
+class NewForumViewTestCase(BaseTestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -81,7 +81,7 @@ class NewForumViewTestCase(BaseForumTestCase):
         )
 
 
-class UpdateForumViewTestCase(BaseForumTestCase):
+class UpdateForumViewTestCase(BaseTestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -128,7 +128,7 @@ class UpdateForumViewTestCase(BaseForumTestCase):
         )
 
 
-class ChangeForumVisibilityViewTestCase(BaseForumTestCase):
+class ChangeForumVisibilityViewTestCase(BaseTestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -166,7 +166,7 @@ class ChangeForumVisibilityViewTestCase(BaseForumTestCase):
         self.assertEqual(response.url, reverse('forums:index'))
 
 
-class ShowForumViewTestCase(BaseForumTestCase):
+class ShowForumViewTestCase(BaseTestCase):
 
     def setUp(self):
         self.factory = RequestFactory()

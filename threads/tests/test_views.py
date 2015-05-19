@@ -1,12 +1,12 @@
-from .base import BaseThreadTestCase
 from django.core.urlresolvers import reverse
 from django.test import RequestFactory
+from fora.tests.base import BaseTestCase
 from forums.models import Forum
 from threads.models import Thread
 from threads.views import NewThreadView, ShowThreadView
 
 
-class NewThreadViewTestCase(BaseThreadTestCase):
+class NewThreadViewTestCase(BaseTestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
@@ -28,7 +28,8 @@ class NewThreadViewTestCase(BaseThreadTestCase):
         )
 
     def test_post_form(self):
-        forum = Forum.objects.create(name='My Forum', description='Hello World')
+        forum = Forum.objects.create(
+            name='My Forum', description='Hello World')
         request = self.factory.post(reverse('threads:new'), data={
             'subject': 'My thread',
             'forum': forum.pk
@@ -42,7 +43,7 @@ class NewThreadViewTestCase(BaseThreadTestCase):
             'threads:show', kwargs={'slug': thread.slug}))
 
 
-class ShowThreadViewTestCase(BaseThreadTestCase):
+class ShowThreadViewTestCase(BaseTestCase):
 
     def setUp(self):
         self.factory = RequestFactory()

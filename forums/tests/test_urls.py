@@ -1,10 +1,10 @@
 from django.core.urlresolvers import reverse
 from django.test import Client
+from fora.tests.base import BaseTestCase
 from forums.models import Forum
-from .base import BaseForumTestCase
 
 
-class ForumUrlsTestCase(BaseForumTestCase):
+class ForumUrlsTestCase(BaseTestCase):
 
     def setUp(self):
         super(ForumUrlsTestCase, self).setUp()

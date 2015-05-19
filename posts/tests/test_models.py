@@ -1,14 +1,14 @@
 import datetime
 
 from django.utils import timezone
+from fora.tests.base import BaseTestCase
 from forums.models import Forum
 from mock import patch
 from posts.models import Post
 from threads.models import Thread
-from .base import BasePostTestCase
 
 
-class PostModelTestCase(BasePostTestCase):
+class PostModelTestCase(BaseTestCase):
 
     def setUp(self):
         self.forum = Forum.objects.create(name='Forum', description='Testing')

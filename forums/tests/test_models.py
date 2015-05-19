@@ -1,9 +1,9 @@
+from fora.tests.base import BaseTestCase
 from forums.models import Forum
 from threads.models import Thread
-from .base import BaseForumTestCase
 
 
-class ForumModelTestCase(BaseForumTestCase):
+class ForumModelTestCase(BaseTestCase):
 
     def setUp(self):
         self.forum = Forum.objects.create(

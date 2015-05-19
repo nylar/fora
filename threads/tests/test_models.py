@@ -1,13 +1,14 @@
 import datetime
 
-from .base import BaseThreadTestCase
 from django.utils import timezone
+from fora.tests.base import BaseTestCase
 from forums.models import Forum
 from mock import patch
+from posts.models import Post
 from threads.models import Thread
 
 
-class ThreadModelTestCase(BaseThreadTestCase):
+class ThreadModelTestCase(BaseTestCase):
 
     def setUp(self):
         self.forum = Forum.objects.create(name='Test', description='Testing')
@@ -31,3 +32,16 @@ class ThreadModelTestCase(BaseThreadTestCase):
     def test_thread_creation_date(self, mock_now):
         t = Thread.objects.create(subject='Mocked Date', forum=self.forum)
         self.assertEqual(t.created, datetime.datetime(2015, 1, 1))
+
+    def test_posts_empty(self):
+        posts = self.thread.posts()
+        self.assertEqual(len(posts), 0)
+        self.assertEqual(list(posts), [])
+
+    def test_posts(self):
+        p1 = Post.objects.create(message='p1', thread=self.thread)
+        p2 = Post.objects.create(message='p2', thread=self.thread, parent=p1)
+
+        posts = self.thread.posts()
+        self.assertEqual(len(posts), 2)
+        self.assertEqual(list(posts), [p1, p2])
