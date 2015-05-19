@@ -13,6 +13,7 @@ class Post(models.Model):
     slug = models.SlugField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    depth = models.PositiveSmallIntegerField(default=0)
 
     # Foreign Keys
     thread = models.ForeignKey('threads.Thread')
@@ -29,4 +30,9 @@ class Post(models.Model):
 def generate_slug(sender, instance, created, **kwargs):
     if created:
         instance.slug = HASHER.encode(instance.pk)
+        # Calculate the depth for a comment, root nodes are 0 and those with
+        # children take their parent's depth value plus one.
+        depth = 0 if instance.parent is None else instance.parent.depth + 1
+        instance.depth = depth
+
         instance.save()

@@ -33,3 +33,10 @@ class PostModelTestCase(BaseTestCase):
             message='Post', thread=self.thread, parent=None)
         self.assertEqual(p.created, datetime.datetime(2015, 1, 1))
         self.assertEqual(p.updated, datetime.datetime(2015, 1, 1))
+
+    def test_post_depth(self):
+        self.assertEqual(self.post.depth, 0)
+
+        p = Post.objects.create(
+            message='A Child', thread=self.thread, parent=self.post)
+        self.assertEqual(p.depth, 1)
