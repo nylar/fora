@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from fora.tests.base import BaseTestCase
 from forums.models import Forum
 from threads.models import Thread
@@ -55,3 +56,16 @@ class ForumModelTestCase(BaseTestCase):
         threads = self.forum.threads()
         self.assertEqual(len(threads), 2)
         self.assertEqual(list(threads), [t1, t2])
+
+    def test_moderator_list_empty(self):
+        mods = self.forum.moderator_list()
+        self.assertEqual(len(mods), 0)
+        self.assertEqual(list(mods), [])
+
+    def test_moderator_list(self):
+        u = get_user_model().objects.create(username='mod1', password='p')
+        self.forum.moderators.add(u)
+
+        mods = self.forum.moderator_list()
+        self.assertEqual(len(mods), 1)
+        self.assertEqual(list(mods), [u])

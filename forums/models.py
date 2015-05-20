@@ -17,6 +17,9 @@ class Forum(models.Model):
     objects = models.Manager()
     visible = VisibleManager()
 
+    # Foreign Keys
+    moderators = models.ManyToManyField('users.User')
+
     def __str__(self):
         return self.name
 
@@ -29,3 +32,6 @@ class Forum(models.Model):
 
     def threads(self):
         return self.thread_set.all()
+
+    def moderator_list(self):
+        return self.moderators.all()
