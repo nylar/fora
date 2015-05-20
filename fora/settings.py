@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+AUTH_USER_MODEL = "users.User"
 
 # Application definition
 
@@ -41,6 +42,7 @@ INSTALLED_APPS = (
     'forums',
     'threads',
     'posts',
+    'users',
 )
 
 MIDDLEWARE_CLASSES = (
