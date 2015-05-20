@@ -18,6 +18,8 @@ class Post(models.Model):
     # Foreign Keys
     thread = models.ForeignKey('threads.Thread')
     parent = models.OneToOneField('self', null=True, blank=True)
+    author = models.OneToOneField(
+        'users.User', blank=True, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return self.slug

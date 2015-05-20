@@ -15,6 +15,8 @@ class Thread(models.Model):
 
     # Relations
     forum = models.ForeignKey('forums.Forum')
+    author = models.OneToOneField(
+        'users.User', blank=True, null=True, on_delete=models.SET_NULL)
 
     # Managers
     objects = models.Manager()
