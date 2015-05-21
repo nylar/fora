@@ -15,3 +15,7 @@ class UserUrlsTestCase(BaseTestCase):
         response = self.client.get(
             reverse('users:profile', kwargs={'username': u.username}))
         self.assertEqual(response.status_code, 200)
+
+    def test_register_url(self):
+        response = self.client.get(reverse('users:register'))
+        self.assertEqual(response.status_code, 200)

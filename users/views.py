@@ -1,6 +1,9 @@
 from django.contrib.auth import get_user_model
+from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
+from users.forms import UserRegisterForm
 
 
 class UserProfileView(DetailView):
@@ -10,3 +13,12 @@ class UserProfileView(DetailView):
     def get_object(self):
         return get_object_or_404(
             get_user_model(), username=self.kwargs.get('username'))
+
+
+class UserRegisterView(CreateView):
+    form_class = UserRegisterForm
+    template_name = 'users/user_register.html'
+
+    def get_success_url(self):
+        return reverse('users:profile', kwargs={
+            'username': self.object.username})
