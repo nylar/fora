@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/nylar/fora.svg?branch=master)](https://travis-ci.org/nylar/fora)
 [![Coverage Status](https://coveralls.io/repos/nylar/fora/badge.svg?branch=master)](https://coveralls.io/r/nylar/fora?branch=master)
 [![License](https://img.shields.io/badge/license-CC0-blue.svg)](LICENSE)
+[![Code Climate](https://codeclimate.com/github/nylar/fora/badges/gpa.svg)](https://codeclimate.com/github/nylar/fora)
 
 A Django forum.
 
