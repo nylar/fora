@@ -1,4 +1,4 @@
-# Shrtn
+# Fora
 
 [![Build Status](https://travis-ci.org/nylar/fora.svg?branch=master)](https://travis-ci.org/nylar/fora)
 [![Coverage Status](https://coveralls.io/repos/nylar/fora/badge.svg?branch=master)](https://coveralls.io/r/nylar/fora?branch=master)
