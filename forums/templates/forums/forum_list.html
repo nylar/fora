@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<a href="{% url 'forums:new' %}" class="btn btn-green">New Forum</a>
-
-
+<div class="forum-actions">
+    <a href="{% url 'forums:new' %}" class="btn btn-success">New Forum</a>
+</div>
 <table>
     <thead>
         <tr>
@@ -12,16 +12,26 @@
         </tr>
     </thead>
     <tbody>
-        {% for forum in forums %}
-        <tr>
-            <td><a href="{% url 'forums:show' forum.slug %}">{{ forum.name }}</a></td>
-            <td>{{ forum.description }}</td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="2">No forums found</td>
-        </tr>
-        {% endfor %}
+    {% for forum in forums %}
+    <tr>
+        <td>
+            <a href="{% url 'forums:show' forum.slug %}">{{ forum.name }}</a>
+            {% if forum.moderator_list %}
+            <div class="moderator-list">
+                Moderators: 
+                {% for moderator in forum.moderator_list %}
+                    <a href="{% url 'users:profile' moderator.username %}">{{ moderator.username }}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </td>
+        <td><span class="forum-description">{{ forum.description }}</span></td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="2" class="empty">No forums found</td>
+    </tr>
+    {% endfor %}
     </tbody>
-</table>  
+</table>
 {% endblock content %}

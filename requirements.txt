@@ -1,7 +1,11 @@
 cov-core==1.15.0
 coverage==3.7.1
 Django==1.8.1
+django-appconf==1.0.1
+django-compressor==1.5
+django-libsass==0.3
 hashids==1.1.0
+libsass==0.8.2
 mock==1.0.1
 py==1.4.27
 pytest==2.7.0

@@ -5,9 +5,9 @@
     {% csrf_token %}
     {{ form.as_p }}
     {% if thread %}
-    <input type="submit" value="Update Thread" class="btn btn-green" />
+    <input type="submit" value="Update Thread" class="btn btn-success" />
     {% else %}
-    <input type="submit" value="Create Thread" class="btn btn-green" />
+    <input type="submit" value="Create Thread" class="btn btn-success" />
     {% endif %}
 </form>
 {% endblock content %}

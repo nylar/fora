@@ -4,10 +4,13 @@
 <form action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    {% if forum %}
-    <input type="submit" value="Update Forum" class="btn btn-green" />
-    {% else %}
-    <input type="submit" value="Create Forum" class="btn btn-green" />
-    {% endif %}
+    <div class="form-actions">
+        {% if forum %}
+        <input type="submit" value="Update Forum" class="btn btn-success" />
+        {% else %}
+        <input type="submit" value="Create Forum" class="btn btn-success" />
+        {% endif %}
+        <a href="{% url 'forums:index' %}" class="btn btn-secondary">Cancel</a>
+    </div>
 </form>
 {% endblock content %}
