@@ -46,6 +46,7 @@ class NewForumViewTestCase(BaseTestCase):
 
     def test_get_new_view(self):
         request = self.factory.get('/')
+        request.user = self.user
         response = NewForumView.as_view()(request)
         response.render()
 
@@ -65,6 +66,7 @@ class NewForumViewTestCase(BaseTestCase):
             'name': 'My Forum',
             'description': 'My forum containing my threads'
         })
+        request.user = self.user
         response = NewForumView.as_view()(request)
 
         self.assertEqual(response.status_code, 302)
@@ -72,6 +74,7 @@ class NewForumViewTestCase(BaseTestCase):
 
     def test_post_form_invalid(self):
         request = self.factory.post(reverse('forums:new'), data={})
+        request.user = self.user
         response = NewForumView.as_view()(request)
         response.render()
 
@@ -94,6 +97,7 @@ class UpdateForumViewTestCase(BaseTestCase):
 
     def test_get_update_view(self):
         request = self.factory.get('/')
+        request.user = self.user
         response = UpdateForumView.as_view()(request, slug=self.forum.slug)
         response.render()
 
@@ -112,6 +116,7 @@ class UpdateForumViewTestCase(BaseTestCase):
             'name': 'Updated Forum',
             'description': self.forum.description
         })
+        request.user = self.user
         response = UpdateForumView.as_view()(request, slug=self.forum.slug)
 
         self.assertEqual(response.status_code, 302)
@@ -119,6 +124,7 @@ class UpdateForumViewTestCase(BaseTestCase):
 
     def test_post_form_invalid(self):
         request = self.factory.post('/', data={})
+        request.user = self.user
         response = UpdateForumView.as_view()(request, slug=self.forum.slug)
         response.render()
 
@@ -141,6 +147,7 @@ class ChangeForumVisibilityViewTestCase(BaseTestCase):
 
     def test_get_visibility_view(self):
         request = self.factory.get('/')
+        request.user = self.user
         response = ChangeForumVisibilityView.as_view()(
             request,
             slug=self.forum.slug
@@ -157,6 +164,7 @@ class ChangeForumVisibilityViewTestCase(BaseTestCase):
         request = self.factory.post('/', data={
             'active': False,
         })
+        request.user = self.user
         response = ChangeForumVisibilityView.as_view()(
             request,
             slug=self.forum.slug

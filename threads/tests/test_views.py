@@ -14,6 +14,7 @@ class NewThreadViewTestCase(BaseTestCase):
 
     def test_get_new_view(self):
         request = self.factory.get('/')
+        request.user = self.user
         response = NewThreadView.as_view()(request)
         response.render()
 
@@ -34,6 +35,7 @@ class NewThreadViewTestCase(BaseTestCase):
             'subject': 'My thread',
             'forum': forum.pk
         })
+        request.user = self.user
         response = NewThreadView.as_view()(request)
 
         thread = Thread.objects.get(pk=1)

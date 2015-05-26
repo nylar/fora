@@ -9,6 +9,7 @@
         <tr>
             <th>Name</th>
             <th>Description</th>
+            <th>Threads</th>
         </tr>
     </thead>
     <tbody>
@@ -26,6 +27,7 @@
             {% endif %}
         </td>
         <td><span class="forum-description">{{ forum.description }}</span></td>
+        <td>{{ forum.thread_count }}</td>
     </tr>
     {% empty %}
     <tr>

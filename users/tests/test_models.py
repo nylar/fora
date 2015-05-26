@@ -5,8 +5,6 @@ from fora.tests.base import BaseTestCase
 class UserModelTestCase(BaseTestCase):
 
     def setUp(self):
-        self.user = get_user_model().objects.create(
-            username='admin', password='')
         super(UserModelTestCase, self).setUp()
 
     def test_new_user(self):
@@ -14,7 +12,7 @@ class UserModelTestCase(BaseTestCase):
         self.assertEqual(get_user_model().objects.get(pk=1), self.user)
 
     def test_user_to_string(self):
-        self.assertEqual(str(self.user), "admin")
+        self.assertEqual(str(self.user), "user")
 
     def test_user_to_unicode(self):
-        self.assertEqual(unicode(self.user), u'admin')
+        self.assertEqual(unicode(self.user), u'user')

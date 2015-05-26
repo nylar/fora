@@ -11,7 +11,13 @@ class ThreadUrlsTestCase(BaseTestCase):
         super(ThreadUrlsTestCase, self).setUp()
         self.client = Client()
 
+    def tearDown(self):
+        self.client.logout()
+        super(ThreadUrlsTestCase, self).tearDown()
+
     def test_new_url(self):
+        self.client.login(
+            username=self.user.username, password=self._password)
         response = self.client.get(reverse('threads:new'))
         self.assertEqual(response.status_code, 200)
 

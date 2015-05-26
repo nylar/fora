@@ -3,6 +3,7 @@ from django.http import Http404
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
+from fora.mixins import LoginRequiredMixin
 from forums.models import Forum
 
 
@@ -11,7 +12,7 @@ class ForumIndexView(ListView):
     model = Forum
 
 
-class NewForumView(CreateView):
+class NewForumView(LoginRequiredMixin, CreateView):
     model = Forum
     fields = ['name', 'description', 'active']
 
@@ -29,7 +30,7 @@ class ForumMixin(object):
             raise Http404('No Forum matches the given query.')
 
 
-class UpdateForumView(ForumMixin, UpdateView):
+class UpdateForumView(LoginRequiredMixin, ForumMixin, UpdateView):
     context_object_name = 'forum'
     model = Forum
     fields = ['name', 'description']
@@ -38,7 +39,7 @@ class UpdateForumView(ForumMixin, UpdateView):
         return reverse('forums:index')
 
 
-class ChangeForumVisibilityView(UpdateView):
+class ChangeForumVisibilityView(LoginRequiredMixin, UpdateView):
     context_object_name = 'forum'
     model = Forum
     fields = ['active']

@@ -13,13 +13,17 @@
 <table>
     <thead>
         <tr>
-            <th>Thread</th>
+            <th>Subject</th>
+            <th>Author</th>
+            <th>Posts</th>
         </tr>
     </thead>
     <tbody>
     {% for thread in forum.threads %}
     <tr>
         <td><a href="{% url 'threads:show' thread.slug %}">{{ thread.subject }}</a></td>
+        <td><a href="{% url 'users:profile' thread.author.username %}">{{ thread.author.username }}</td>
+        <td>{{ thread.post_count }}</td>
     </tr>
     {% empty %}
     <tr>

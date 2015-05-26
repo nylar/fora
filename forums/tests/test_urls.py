@@ -10,15 +10,23 @@ class ForumUrlsTestCase(BaseTestCase):
         super(ForumUrlsTestCase, self).setUp()
         self.client = Client()
 
+    def tearDown(self):
+        self.client.logout()
+        super(ForumUrlsTestCase, self).tearDown()
+
     def test_index_url(self):
         response = self.client.get(reverse('forums:index'))
         self.assertEqual(response.status_code, 200)
 
     def test_new_url(self):
+        self.client.login(
+            username=self.user.username, password=self._password)
         response = self.client.get(reverse('forums:new'))
         self.assertEqual(response.status_code, 200)
 
     def test_update_url(self):
+        self.client.login(
+            username=self.user.username, password=self._password)
         f = Forum.objects.create(name='Test', description='Test', active=True)
         response = self.client.get(
             reverse('forums:update', kwargs={'slug': f.slug})
@@ -26,6 +34,8 @@ class ForumUrlsTestCase(BaseTestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_update_url_not_found(self):
+        self.client.login(
+            username=self.user.username, password=self._password)
         f = Forum.objects.create(name='Test', description='Test', active=False)
         response = self.client.get(
             reverse('forums:update', kwargs={'slug': f.slug})
@@ -33,6 +43,8 @@ class ForumUrlsTestCase(BaseTestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_visibility_url(self):
+        self.client.login(
+            username=self.user.username, password=self._password)
         f = Forum.objects.create(
             name='Visible',
             description='I am visible',

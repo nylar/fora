@@ -30,6 +30,9 @@ class Thread(models.Model):
     def posts(self):
         return self.post_set.all()
 
+    def post_count(self):
+        return self.post_set.count()
+
 
 @receiver(post_save, sender=Thread)
 def generate_slug(sender, instance, created, **kwargs):

@@ -33,5 +33,8 @@ class Forum(models.Model):
     def threads(self):
         return self.thread_set.all()
 
+    def thread_count(self):
+        return self.thread_set.count()
+
     def moderator_list(self):
         return self.moderators.all()

@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+from django.core.urlresolvers import reverse_lazy
+
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -29,6 +32,8 @@ ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = "users.User"
 
+LOGIN_URL = reverse_lazy('users:login')
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -41,10 +46,10 @@ INSTALLED_APPS = (
 
     'compressor',
 
+    'users',
     'forums',
     'threads',
     'posts',
-    'users',
 )
 
 MIDDLEWARE_CLASSES = (

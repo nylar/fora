@@ -45,3 +45,11 @@ class ThreadModelTestCase(BaseTestCase):
         posts = self.thread.posts()
         self.assertEqual(len(posts), 2)
         self.assertEqual(list(posts), [p1, p2])
+
+    def test_post_count(self):
+        post_count = self.thread.post_count()
+        self.assertEqual(post_count, 0)
+
+        Post.objects.create(message='p1', thread=self.thread)
+        post_count = self.thread.post_count()
+        self.assertEqual(post_count, 1)
